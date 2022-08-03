@@ -1,4 +1,5 @@
 """ unittest for BaseModel class"""
+from turtle import st
 import unittest
 from datetime import datetime
 from models.base_model import BaseModel
@@ -16,6 +17,10 @@ class TestBaseModel(unittest.TestCase):
             ---------------
             class: curent class
         """
+        print('\n\n.................................')
+        print('..... Testing Documentation .....')
+        print('.....  For BaseModel Class  .....')
+        print('.................................\n\n')
         cls.testModel = BaseModel()
 
     def setUp(self):
@@ -106,6 +111,10 @@ class TestBaseModel(unittest.TestCase):
         new_dict = self.testModel.to_dict()
         self.assertEqual(type(new_dict), dict)
         self.assertTrue("to_dict" in dir(self.testModel))
+        self.assertTrue(type(new_dict["created_at"]) == str)
+        self.assertTrue(type(new_dict["updated_at"]) == str)
+        self.assertTrue(type(self.testModel.created_at) == datetime)
+        self.assertTrue(type(self.testModel.updated_at) == datetime)
 
     @classmethod
     def tearDownClass(cls):
