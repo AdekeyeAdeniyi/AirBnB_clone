@@ -3,6 +3,7 @@
     Module for Base class
     Contains the Base class for the AirBnB clone console.
 """
+from multiprocessing import Value
 from uuid import uuid4
 from datetime import datetime;
 
@@ -21,7 +22,7 @@ class BaseModel:
             current time when instance was created/updated
     """
 
-    def __init__(self):
+    def __init__(self, *args, **kwargs):
         """
             Constructs all the necessary instances of BaseModel class.
             ---------------
@@ -29,10 +30,23 @@ class BaseModel:
             Parameters
             ---------------
             self: BaseModel instance
+            *args: list of arguments
+            **kwargs: dict of key-value arguments
         """
-        self.id = str(uuid4())
-        self.created_at = datetime.now()
-        self.updated_at = datetime.now()
+        if kwargs is not None and kwargs != {}:
+            for key, value in kwargs.items():
+                if key == 'created_at':
+                    self.__dict__['created_at'] = datetime.strptime(
+                        value, "%Y-%m-%dT%H:%M:%S.%f")
+                elif key == 'updated_at':
+                    self.__dict__['updated_at'] = datetime.strptime(
+                        value, "%Y-%m-%dT%H:%M:%S.%f")
+                else:
+                    self.__dict__[key] = value
+        else:
+            self.id = str(uuid4())
+            self.created_at = datetime.now()
+            self.updated_at = datetime.now()
 
     def __str__(self):
         """
@@ -72,3 +86,6 @@ class BaseModel:
         my_dict["updated_at"] = (self.updated_at).isoformat()
 
         return my_dict
+
+
+p = BaseModel(created_at = "2017-09-28T21:03:54.052302")
