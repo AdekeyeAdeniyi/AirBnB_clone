@@ -3,8 +3,8 @@
     Module for Base class
     Contains the Base class for the AirBnB clone console.
 """
-import uuid;
-import datetime;
+from uuid import uuid4
+from datetime import datetime;
 
 class BaseModel:
     """
@@ -28,27 +28,43 @@ class BaseModel:
 
             Parameters
             ---------------
+            self: BaseModel instance
         """
-        self.id = str(uuid.uuid4())
-        self.created_at = datetime.datetime.now()
-        self.updated_at = datetime.datetime.now()
+        self.id = str(uuid4())
+        self.created_at = datetime.now()
+        self.updated_at = datetime.now()
 
     def __str__(self):
         """
             Return instance detail in human-readable string.
+            ---------------
+
+            Parameters
+            ---------------
+            self: BaseModel instance
         """
 
         return("{} {} {} \n" .format(type(self).__name__, self.id, self.__dict__))
     
     def save(self):
         """
-            Update the update_at attributes with current datetime.
+            Update the updated_at attribute with current datatime
+            ---------------
+
+            Parameters
+            ---------------
+            self: BaseModel instance
         """
-        self.updated_at = datetime.datetime.now()
+        self.updated_at = datetime.now()
     
     def to_dict(self):
         """
             Returns a dictionary containing all keys/values of __dict__ of the instance.
+            ---------------
+
+            Parameters
+            ---------------
+            self: BaseModel instance
         """
         my_dict = self.__dict__.copy()
         my_dict["__class__"] = type(self).__name__
