@@ -1,5 +1,4 @@
 """ unittest for BaseModel class"""
-from turtle import st
 import unittest
 from datetime import datetime
 from models.base_model import BaseModel
@@ -85,7 +84,6 @@ class TestBaseModel(unittest.TestCase):
             ---------------
             self: unittest instance
         """
-        self.assertEqual(datetime.now(), self.testModel.created_at)
         self.assertEqual(datetime, type(self.testModel.created_at))
 
     def test_updated_at(self):
